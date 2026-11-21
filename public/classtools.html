@@ -104,6 +104,8 @@
       margin-top: 1rem;
     }
     .download-note { font-size: 1.1rem; color: var(--muted); }
+    .signup-msg { margin: .75rem 0 0; color: var(--blue); min-height: 1.5rem; }
+    .signup-small { font-size: 1rem; color: var(--muted); margin: .25rem 0 0; }
     footer {
       text-align: center;
       color: var(--muted);
@@ -152,10 +154,13 @@
   <h2>Stay Updated with the latest versions?</h2>
   <div class="box">
     <p>Pop your email in below and I'll let you know when a new version is out.</p>
-    <form class="signup" action="YOUR_FORM_RESPONSE_URL" method="post" target="_blank">
-      <input type="email" name="entry.YOUR_EMAIL_FIELD_ID" placeholder="you@school.org" required aria-label="Email address">
-      <button type="submit" class="btn">Keep me posted</button>
+    <form class="signup" id="signup">
+      <input type="email" id="signupEmail" placeholder="you@school.org" required aria-label="Email address">
+      <button type="submit" class="btn" id="signupBtn">Keep me posted</button>
     </form>
+    <p class="signup-msg" id="signupMsg" role="status"></p>
+    <p class="signup-small">Used only to tell you about new ClassTools versions, at most once a week.
+      Reply to any of them to come off the list.</p>
   </div>
 
 </main>
@@ -262,6 +267,40 @@
         + ' \u00b7 ' + Math.round(zip.size / 1048576) + ' MB';
     })
     .catch(function () {});
+})();
+</script>
+
+<script>
+// The sign-up box posts straight into a Google Form, which collects the addresses in a sheet.
+// It is sent across without asking for a reply ("no-cors"), because Google does not allow one to
+// be read from another site - so the form records the address, and this page just says thank you
+// rather than throwing the teacher out to a Google page they did not ask for.
+(function () {
+  var FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSdqGJ_KrYTALV50-h0_zkPNo4tPxmvAtesDlgH8Ys5UXPHJrw/formResponse';
+  var FIELD = 'entry.1259728381';
+  var form = document.getElementById('signup');
+  if (!form) return;
+  var box = document.getElementById('signupEmail'),
+      btn = document.getElementById('signupBtn'),
+      msg = document.getElementById('signupMsg');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = (box.value || '').trim();
+    if (!email) return;
+    btn.disabled = true;
+    msg.textContent = 'Adding you\u2026';
+    var data = new FormData();
+    data.append(FIELD, email);
+    fetch(FORM, { method: 'POST', mode: 'no-cors', body: data })
+      .then(function () {
+        form.style.display = 'none';
+        msg.textContent = 'Thanks \u2013 you\u2019re on the list. I\u2019ll only email when there\u2019s a new version.';
+      })
+      .catch(function () {
+        btn.disabled = false;
+        msg.textContent = 'That didn\u2019t send. Check your connection and try again.';
+      });
+  });
 })();
 </script>
 

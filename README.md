@@ -36,6 +36,20 @@ button. Publishing a new release is all it takes — this site needs no edit.
 The link written into the HTML is a direct download of the current zip, so the
 button still works with scripts turned off.
 
+## Update emails
+
+The sign-up box on the ClassTools page posts into a Google Form, "ClassTools
+updates", which collects the addresses.
+
+`email/ClassTools-updates.gs` runs on that form (three dots > Apps Script). Once
+a week it asks GitHub whether a new ClassTools version has been released. If one
+has, everybody signed up gets a short email with three of the changes, taken
+from the release notes. If not, nothing is sent, so nobody gets an email for the
+sake of it.
+
+Setup, and the by-hand functions (`previewToMe`, `whoIsOnTheList`, `sendNow`),
+are documented at the top of that file.
+
 ## Hosting notes
 
 - `cleanUrls` is on, so the ClassTools page is `/classtools`. The older
