@@ -84,18 +84,8 @@ call firebase login
 if errorlevel 1 goto failed
 
 REM ---- The hosting site -----------------------------------------------------------
-REM Nothing is hidden from here on. Firebase sometimes asks a question - to switch
-REM an API on, for instance - and a hidden question looks exactly like a freeze.
-echo.
-echo   ================================================
-echo     Setting up the hosting site.
-echo.
-echo     If it asks anything, answer it here. Press Y
-echo     to any question about enabling an API.
-echo     "already exists" is fine and expected.
-echo   ================================================
-echo.
-call firebase hosting:sites:create risingmaths
+REM The site already exists on this project, so there is nothing to create. Asking
+REM the CLI to make it again just leaves it asking for a different name.
 
 REM ---- Put it live -----------------------------------------------------------------
 echo.
