@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClassTools App | RisingMaths</title>
+  <meta name="description" content="ClassTools App: a classroom maths presentation tool. Features, download and setup guide.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1f5fa8;
+      --bg: #f7f8fa;
+      --text: #222;
+      --muted: #5b6573;
+      --pencil: #808080;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Patrick Hand", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.06em;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      background-color: #fdfdfd;
+      background-image:
+        repeating-linear-gradient(30deg, transparent 0 39px, #cfd8e3 39px 40px),
+        repeating-linear-gradient(120deg, transparent 0 39px, #cfd8e3 39px 40px);
+      color: var(--blue);
+      text-align: center;
+      position: relative;
+      max-width: 900px;
+      margin: 1.5rem auto 0;
+      padding: 2rem 1rem;
+    }
+    header h1 { margin: 0 0 .3rem; font-size: 2.6rem; }
+    header p { margin: 0; color: var(--muted); }
+    header a { color: var(--blue); }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    h2 { color: var(--blue); margin-top: 2.5rem; }
+    .box {
+      background: transparent;
+      position: relative;
+      padding: 1.5rem;
+    }
+    .box p, .box li { color: var(--muted); }
+    .box ol, .box ul { padding-left: 1.5rem; margin: .5rem 0 0; }
+    .box li { margin-bottom: .5rem; }
+    .box h3 { margin: 0 0 .4rem; color: var(--blue); font-size: 1.6rem; }
+    .btn {
+      display: inline-block;
+      text-align: center;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      padding: .9rem 1.4rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1.35rem;
+      min-height: 56px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn:hover { background: #174a85; }
+    .wob {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 2;
+    }
+    .signup {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: .75rem;
+    }
+    .signup input {
+      font-family: inherit;
+      font-size: 1.2rem;
+      padding: .7rem 1rem;
+      border: 2px solid var(--pencil);
+      border-radius: 8px;
+      min-width: 260px;
+      background: #fff;
+    }
+    .download-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .download-note { font-size: 1.1rem; color: var(--muted); }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.15rem;
+      padding: 2rem 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ClassTools App</h1>
+  <p>The ultimate maths classroom presentation solution!</p>
+  <p><a href="index.html">&larr; Back to RisingMaths</a></p>
+</header>
+
+<main>
+
+  <h2>What it does</h2>
+  <div class="box">
+    <ol>
+      <li><strong>Scaled rulers:</strong> rulers drawn to scale on screen, so you can measure and show lengths to the class.</li>
+      <li><strong>Interactive shapes:</strong> move and explore shapes in front of the class.</li>
+      <li><strong>Demo calculator emulator:</strong> a calculator on screen that you can use to demonstrate key presses, for example on the fx-83GT CW+.</li>
+      <li><strong>Always-visible learning objectives:</strong> keep the lesson objectives on screen while you teach.</li>
+      <li><strong>PDF and document pen:</strong> write on worksheets and documents as you go through them.</li>
+      <li><strong>Timer and screen pen:</strong> a classroom timer, plus a pen you can draw anywhere on the screen.</li>
+    </ol>
+    <div class="download-row">
+      <a class="btn" id="ct-download" href="https://github.com/chrisrising/classtools/releases/latest/download/ClassTools-Windows-1.52.0.zip">Download ClassTools (ZIP)</a>
+      <span class="download-note" id="ct-meta">Version 1.52.0 &middot; 21 November 2026 &middot; 101 MB</span>
+    </div>
+  </div>
+
+  <h2>Download and set up</h2>
+  <div class="box">
+    <ol>
+      <li>Click <strong>Download ClassTools (ZIP)</strong> above. The file will save to your Downloads folder.</li>
+      <li>Right-click the ZIP file and choose <strong>Extract All</strong>. Pick a folder you'll remember, such as Documents.</li>
+      <li>Open the folder you extracted and double-click <strong>ClassTools</strong> to start the app.</li>
+      <li>If Windows shows a "Windows protected your PC" warning, click <strong>More info</strong>, then <strong>Run anyway</strong>. This happens with apps that aren't widely downloaded yet.</li>
+      <li>To keep it handy, right-click the ClassTools icon on your taskbar while it's running and choose <strong>Pin to taskbar</strong>. It will then be one click away every lesson.</li>
+    </ol>
+  </div>
+
+  <h2>Stay Updated with the latest versions?</h2>
+  <div class="box">
+    <p>Pop your email in below and I'll let you know when a new version is out.</p>
+    <form class="signup" action="YOUR_FORM_RESPONSE_URL" method="post" target="_blank">
+      <input type="email" name="entry.YOUR_EMAIL_FIELD_ID" placeholder="you@school.org" required aria-label="Email address">
+      <button type="submit" class="btn">Keep me posted</button>
+    </form>
+  </div>
+
+</main>
+
+<footer>
+  Free to use for teaching and personal study.
+</footer>
+
+<script>
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  var AMP = 0.7, WAVE = 110, STEP = 3, R = 12, INSET = 2, STROKE = 4;
+
+  // Rounded-rectangle outline with a gentle wave along each side
+  function outline(w, h) {
+    var x0 = INSET, y0 = INSET, x1 = w - INSET, y1 = h - INSET, r = R - INSET;
+    var segs = [
+      { line: true, a: [x0 + r, y0], b: [x1 - r, y0], n: [0, -1] },
+      { line: false, c: [x1 - r, y0 + r], t0: -Math.PI / 2, t1: 0 },
+      { line: true, a: [x1, y0 + r], b: [x1, y1 - r], n: [1, 0] },
+      { line: false, c: [x1 - r, y1 - r], t0: 0, t1: Math.PI / 2 },
+      { line: true, a: [x1 - r, y1], b: [x0 + r, y1], n: [0, 1] },
+      { line: false, c: [x0 + r, y1 - r], t0: Math.PI / 2, t1: Math.PI },
+      { line: true, a: [x0, y1 - r], b: [x0, y0 + r], n: [-1, 0] },
+      { line: false, c: [x0 + r, y0 + r], t0: Math.PI, t1: 1.5 * Math.PI }
+    ];
+    var pts = [], s = 0;
+    segs.forEach(function (sg) {
+      if (sg.line) {
+        var dx = sg.b[0] - sg.a[0], dy = sg.b[1] - sg.a[1];
+        var len = Math.sqrt(dx * dx + dy * dy);
+        var n = Math.max(1, Math.ceil(len / STEP));
+        for (var i = 0; i < n; i++) {
+          var u = i / n;
+          var d = AMP * Math.sin(2 * Math.PI * (s + len * u) / WAVE);
+          pts.push([sg.a[0] + dx * u + sg.n[0] * d, sg.a[1] + dy * u + sg.n[1] * d]);
+        }
+        s += len;
+      } else {
+        var arcLen = Math.abs(sg.t1 - sg.t0) * r;
+        var m = Math.max(2, Math.ceil(arcLen / STEP));
+        for (var j = 0; j < m; j++) {
+          var f = j / m;
+          var th = sg.t0 + (sg.t1 - sg.t0) * f;
+          var cx = Math.cos(th), cy = Math.sin(th);
+          var da = AMP * Math.sin(2 * Math.PI * (s + arcLen * f) / WAVE);
+          pts.push([sg.c[0] + r * cx + cx * da, sg.c[1] + r * cy + cy * da]);
+        }
+        s += arcLen;
+      }
+    });
+    return 'M' + pts.map(function (p) { return p[0].toFixed(2) + ' ' + p[1].toFixed(2); }).join('L') + 'Z';
+  }
+
+  function draw(el) {
+    var svg = el.querySelector(':scope > svg.wob');
+    if (!svg) {
+      svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('class', 'wob');
+      var path = document.createElementNS(NS, 'path');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#808080');
+      path.setAttribute('stroke-width', STROKE);
+      path.setAttribute('stroke-linejoin', 'round');
+      svg.appendChild(path);
+      el.insertBefore(svg, el.firstChild);
+    }
+    var w = el.clientWidth, h = el.clientHeight;
+    svg.setAttribute('width', w);
+    svg.setAttribute('height', h);
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    svg.firstChild.setAttribute('d', outline(w, h));
+  }
+
+  function drawAll() {
+    document.querySelectorAll('header, .box').forEach(draw);
+  }
+
+  drawAll();
+  window.addEventListener('resize', drawAll);
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(drawAll); }
+})();
+</script>
+
+<script>
+// Asks GitHub for the newest ClassTools release when the page loads, then points the button at that
+// zip and writes the version, date and size beside it. Nothing here needs editing when a new
+// version goes out. The link written in the HTML above downloads the zip straight off, so the
+// button never opens GitHub even with scripts turned off; this keeps it pointing at the newest
+// one. Worth knowing: that written-in link names a file, so if GitHub cannot be reached AND a
+// newer version has been released since, it is the one link that would go stale.
+(function () {
+  var btn = document.getElementById('ct-download'), meta = document.getElementById('ct-meta');
+  if (!btn || !meta) return;
+  fetch('https://api.github.com/repos/chrisrising/classtools/releases/latest')
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function (rel) {
+      var zip = (rel.assets || []).filter(function (a) { return /\.zip$/i.test(a.name); })[0];
+      if (!zip) return;
+      btn.href = zip.browser_download_url;
+      meta.textContent = 'Version ' + String(rel.tag_name).replace(/^v/, '')
+        + ' \u00b7 ' + new Date(rel.published_at).toLocaleDateString('en-GB',
+            { day: 'numeric', month: 'long', year: 'numeric' })
+        + ' \u00b7 ' + Math.round(zip.size / 1048576) + ' MB';
+    })
+    .catch(function () {});
+})();
+</script>
+
+</body>
+</html>

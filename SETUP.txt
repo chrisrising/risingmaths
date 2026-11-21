@@ -1,0 +1,52 @@
+RisingMaths on Firebase Hosting
+===============================
+
+Everything is ready. You need Node.js installed (nodejs.org), then run these
+four commands once, in order, from this folder.
+
+Open a terminal here: hold Shift, right-click this folder, "Open PowerShell
+window here" (or "Open in Terminal").
+
+
+  1.  npm install -g firebase-tools
+
+      Installs Firebase's command line tool. One time only.
+
+
+  2.  firebase login
+
+      Opens your browser so you can sign in with your Google account.
+
+
+  3.  firebase projects:create risingmaths
+
+      Creates the project. If that name is taken it will say so - try
+      risingmaths-uk, risingmaths-site, or anything else free. Whatever you
+      end up with, put the same name in .firebaserc in this folder.
+
+
+  4.  firebase deploy --only hosting
+
+      Puts the site live. It prints the address when it finishes, which will
+      be https://<your-project>.web.app
+
+
+After that, to update the site: change the files in the public folder and
+double-click deploy.cmd. That's the whole routine.
+
+
+Notes
+-----
+
+- The address is free and permanent, with HTTPS already set up.
+
+- A custom domain (risingmaths.co.uk, say) can be pointed at it later from
+  the Firebase console under Hosting > Add custom domain. You'd need to buy
+  the domain first, from any registrar.
+
+- Nothing is cached, so when you deploy a change your teachers see it
+  straight away rather than a stale copy. If you later add images, you may
+  want to let those cache - say the word and I'll adjust it.
+
+- Addresses are tidied: the ClassTools page is at /classtools rather than
+  /classtools.html. The old .html address still works and redirects.

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RisingMaths</title>
+  <meta name="description" content="Free GCSE and Functional Skills maths resources.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1f5fa8;
+      --red: #2e7d32;
+      --bg: #f7f8fa;
+      --card: #ffffff;
+      --text: #222;
+      --muted: #5b6573;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Patrick Hand", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.06em;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      background-color: #fdfdfd;
+      background-image:
+        repeating-linear-gradient(30deg, transparent 0 39px, #cfd8e3 39px 40px),
+        repeating-linear-gradient(120deg, transparent 0 39px, #cfd8e3 39px 40px);
+      color: var(--blue);
+      text-align: center;
+      position: relative;
+      max-width: 900px;
+      margin: 1.5rem auto 0;
+      padding: 2.5rem 1rem;
+    }
+    header h1 {
+      margin: 0 0 .5rem;
+      font-size: 3.4rem;
+      color: #fff;
+      -webkit-text-stroke: 6px var(--blue);
+      paint-order: stroke fill;
+      text-shadow: 3px 3px 0 var(--blue);
+      position: relative;
+      letter-spacing: 0.096em;
+      display: inline-block;
+      transform: scale(1.44, 1.3);
+      transform-origin: center;
+    }
+    /* Solid white halo behind the title letters, so the squared paper fades out around them */
+    header h1::before {
+      content: "";
+      position: absolute;
+      inset: -0.125em -0.225em;
+      background: rgba(255, 255, 255, 0.8);
+      filter: blur(6px);
+      z-index: -1;
+    }
+    header p { margin: 0; color: var(--muted); position: relative; z-index: 2; }
+    .stickman {
+      position: absolute;
+      right: .75rem;
+      bottom: 2px;
+      width: 85px;
+      height: auto;
+      z-index: 3;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    h2 {
+      color: var(--blue);
+      margin-top: 2.5rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: transparent;
+      position: relative;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .card h3 { margin: 0 0 .4rem; color: var(--blue); font-size: 1.7rem; }
+    .card p { margin: 0 0 1rem; color: var(--muted); font-size: 1.2rem; flex-grow: 1; }
+    .btn {
+      display: inline-block;
+      text-align: center;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      padding: .9rem 1.2rem;      /* large, touch-friendly for interactive whiteboards */
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1.35rem;
+      min-height: 56px;
+    }
+    .btn:hover { background: #174a85; }
+    .btn.red { background: var(--red); }
+    .btn.red:hover { background: #256628; }
+    .btn.donate { background: var(--blue); color: #fff; }
+    .btn.donate:hover { background: #174a85; }
+    .box {
+      background: transparent;
+      position: relative;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .box p { color: var(--muted); }
+    .support-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .coffee-figure {
+      width: 70px;
+      height: auto;
+      flex-shrink: 0;
+      margin-left: 0;
+    }
+    /* Hand-drawn wavy border, drawn as an SVG path behind the content */
+    .wob {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 2;
+    }
+    .soon { opacity: .6; }
+    .qotd-date { margin: 0 0 .5rem; color: var(--blue); font-size: 1.3rem; }
+    .qotd-text { margin: 0; color: var(--text); font-size: 1.7rem; line-height: 1.4; }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.15rem;
+      padding: 2rem 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>RisingMaths</h1>
+  <p>Classroom resources for all maths teachers</p>
+  <svg class="stickman" viewBox="0 0 160 110" aria-hidden="true" fill="none" stroke="#808080" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- whiteboard -->
+    <path d="M62 12 Q62 9 66 9 L152 10 Q156 10 156 14 L155 66 Q155 70 151 70 L66 69 Q62 69 62 65 Z" fill="#fff"/>
+    <!-- marker tray -->
+    <path d="M66 73 Q108 71 150 73"/>
+    <!-- writing on the board -->
+    <path d="M74 26 Q80 22 84 30 M80 22 Q85 27 90 34 M90 22 Q85 28 80 34"/>
+    <path d="M96 28 Q104 25 112 28"/>
+    <path d="M74 44 Q92 41 110 46"/>
+    <path d="M74 56 Q86 53 98 57"/>
+    <!-- hello, revealed after the board is wiped -->
+    <defs>
+      <clipPath id="reveal-clip">
+        <rect id="reveal-rect" x="65" y="24" width="0" height="40"/>
+      </clipPath>
+      <clipPath id="thanks-clip">
+        <rect id="thanks-rect" x="65" y="24" width="0" height="40"/>
+      </clipPath>
+    </defs>
+    <!-- eraser covers the old scribbles, stopping just inside the board edge -->
+    <rect id="eraser" x="65" y="12" width="0" height="55" fill="#fff" stroke="none"/>
+    <text x="109" y="48" text-anchor="middle" font-size="30" fill="#808080" stroke="none" clip-path="url(#reveal-clip)">hello</text>
+    <text x="109" y="48" text-anchor="middle" font-size="30" fill="#808080" stroke="none" clip-path="url(#thanks-clip)">thanks</text>
+    <g id="walker">
+    <!-- head -->
+    <circle cx="30" cy="26" r="16"/>
+    <!-- body -->
+    <path d="M30 42 Q31 62 30 82"/>
+    <!-- arm holding the marker to the board -->
+    <path id="arm" d="M31 52 L56 42"/>
+    <!-- other arm -->
+    <path d="M30 54 Q22 62 16 70"/>
+    <!-- legs -->
+    <path d="M30 82 Q24 96 18 110"/>
+    <path d="M30 82 Q36 96 42 110"/>
+    <!-- sponge or marker held in the hand -->
+    <rect id="tool" x="51" y="39" width="10" height="6" rx="1" fill="#fff"/>
+    </g>
+  </svg>
+</header>
+
+<main>
+
+  <div class="box">
+    <p class="qotd-date" id="qotd-date"></p>
+    <p class="qotd-text" id="qotd-text"></p>
+  </div>
+
+  <h2>Resources</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3>ClassTools App</h3>
+      <p>The ultimate maths classroom presentation solution! Scaled rulers, interactive shapes, demo calculator emulators, always-visible learning objectives and more!</p>
+      <a class="btn" href="classtools.html">Open</a>
+    </div>
+
+    <div class="card soon">
+      <h3>Coming Soon</h3>
+      <p>More resources are on the way.</p>
+      <span class="btn">Coming soon</span>
+    </div>
+
+  </div>
+
+  <h2>Support This Site</h2>
+  <div class="box plain">
+    <p>These resources are free. If they help, you can buy me a coffee to keep the site going.</p>
+    <div class="support-row">
+      <a class="btn donate" href="https://ko-fi.com/chrisrising" target="_blank" rel="noopener">Donate on Ko-fi</a>
+      <svg class="coffee-figure" viewBox="-12 0 92 90" aria-hidden="true" fill="none" stroke="#808080" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+        <!-- head, body leaning back against the button on the left -->
+        <circle cx="0" cy="18" r="9"/>
+        <path d="M0 28 Q3 44 10 56"/>
+        <!-- standing leg -->
+        <path d="M10 56 L18 86"/>
+        <!-- kicked-back leg, foot pressed against the button -->
+        <path d="M10 56 L3 70 L-9 62"/>
+        <!-- arm hanging down beside his back -->
+        <path d="M0 34 L-9 50"/>
+        <!-- arm holding a coffee cup up to the mouth -->
+        <path d="M0 34 L12 24"/>
+        <path d="M14 14 L24 14 L22 24 L16 24 Z"/>
+        <path d="M18 8 Q16 5 19 2 M23 8 Q21 5 24 2"/>
+      </svg>
+    </div>
+  </div>
+
+  <h2>Feedback and Ideas</h2>
+  <div class="box plain">
+    <p>Found a mistake, or have an idea for a resource? Let me know.</p>
+    <a class="btn red" href="https://forms.gle/YOURFORMLINK" target="_blank" rel="noopener">Send Feedback</a>
+  </div>
+
+</main>
+
+<footer>
+  Free to use for teaching and personal study.
+</footer>
+
+<script>
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  var AMP = 0.7;     // how far the line drifts from straight (px)
+  var WAVE = 110;     // length of one gentle wave (px)
+  var STEP = 3;       // point spacing along the outline (px)
+  var R = 12;         // corner radius (matches the CSS)
+  var INSET = 2;      // half the stroke width, so the line sits inside the box
+  var STROKE = 4;
+
+  // Build a rounded-rectangle outline where each point is nudged gently
+  // along its normal, so the line waves smoothly instead of stepping.
+  function outline(w, h) {
+    var x0 = INSET, y0 = INSET, x1 = w - INSET, y1 = h - INSET, r = R - INSET;
+    var segs = [
+      { line: true, a: [x0 + r, y0], b: [x1 - r, y0], n: [0, -1] },
+      { line: false, c: [x1 - r, y0 + r], t0: -Math.PI / 2, t1: 0 },
+      { line: true, a: [x1, y0 + r], b: [x1, y1 - r], n: [1, 0] },
+      { line: false, c: [x1 - r, y1 - r], t0: 0, t1: Math.PI / 2 },
+      { line: true, a: [x1 - r, y1], b: [x0 + r, y1], n: [0, 1] },
+      { line: false, c: [x0 + r, y1 - r], t0: Math.PI / 2, t1: Math.PI },
+      { line: true, a: [x0, y1 - r], b: [x0, y0 + r], n: [-1, 0] },
+      { line: false, c: [x0 + r, y0 + r], t0: Math.PI, t1: 1.5 * Math.PI }
+    ];
+    var pts = [];
+    var s = 0; // distance travelled along the outline so far
+    segs.forEach(function (sg) {
+      if (sg.line) {
+        var dx = sg.b[0] - sg.a[0], dy = sg.b[1] - sg.a[1];
+        var len = Math.sqrt(dx * dx + dy * dy);
+        var n = Math.max(1, Math.ceil(len / STEP));
+        for (var i = 0; i < n; i++) {
+          var u = i / n;
+          var d = AMP * Math.sin(2 * Math.PI * (s + len * u) / WAVE);
+          pts.push([
+            sg.a[0] + dx * u + sg.n[0] * d,
+            sg.a[1] + dy * u + sg.n[1] * d
+          ]);
+        }
+        s += len;
+      } else {
+        var arcLen = Math.abs(sg.t1 - sg.t0) * r;
+        var m = Math.max(2, Math.ceil(arcLen / STEP));
+        for (var j = 0; j < m; j++) {
+          var f = j / m;
+          var th = sg.t0 + (sg.t1 - sg.t0) * f;
+          var cx = Math.cos(th), cy = Math.sin(th);
+          var da = AMP * Math.sin(2 * Math.PI * (s + arcLen * f) / WAVE);
+          pts.push([
+            sg.c[0] + r * cx + cx * da,
+            sg.c[1] + r * cy + cy * da
+          ]);
+        }
+        s += arcLen;
+      }
+    });
+    return 'M' + pts.map(function (p) {
+      return p[0].toFixed(2) + ' ' + p[1].toFixed(2);
+    }).join('L') + 'Z';
+  }
+
+  function draw(el) {
+    var svg = el.querySelector(':scope > svg.wob');
+    if (!svg) {
+      svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('class', 'wob');
+      var path = document.createElementNS(NS, 'path');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#808080');
+      path.setAttribute('stroke-width', STROKE);
+      path.setAttribute('stroke-linejoin', 'round');
+      svg.appendChild(path);
+      el.insertBefore(svg, el.firstChild);
+    }
+    var w = el.clientWidth, h = el.clientHeight;
+    svg.setAttribute('width', w);
+    svg.setAttribute('height', h);
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    svg.firstChild.setAttribute('d', outline(w, h));
+  }
+
+  function drawAll() {
+    document.querySelectorAll('header, .card, .box:not(.plain)').forEach(draw);
+  }
+
+  drawAll();
+  window.addEventListener('resize', drawAll);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(drawAll);
+  }
+})();
+</script>
+
+<script>
+// One Fermi question per day of the year (366 in total, so every day of a leap year gets its own).
+var QUESTIONS = [
+  // 1-10
+  "How many chocolate bars are sold in the UK in a single year?",
+  "How many pencils are used in a typical secondary school in a year?",
+  "How many cars are on UK roads at any one time?",
+  "How many blue whales are alive in the world today?",
+  "How many sheets of A4 paper does a college photocopy in a week?",
+  "How many times does a typical maths teacher write on a whiteboard in a lesson?",
+  "How many dogs are walked in Britain each morning?",
+  "How many Wispa bars would it take to reach the top of Snowdon?",
+  "How many scientific calculators are sold in England each year?",
+  "How many leaves are on a large oak tree?",
+  // 11-20
+  "How many toilets are there in all the schools in the UK?",
+  "How many minutes does the average UK commuter spend on a train each year?",
+  "How many eggs does Britain eat in one day?",
+  "How many bees are needed to pollinate one hectare of apple trees?",
+  "How many tiles would cover the floor of your classroom?",
+  "How many chocolate chips are in a standard cookie?",
+  "How many lorries drive on UK motorways every hour?",
+  "How many pupils in England sit a GCSE maths exam each summer?",
+  "How many hours of sleep does a Year 11 student get across a school term?",
+  "How many times does a sparrow's heart beat in a day?",
+  // 21-30
+  "How many sheep live in Wales?",
+  "How many breaths does a person take in a lifetime?",
+  "How many staples are used in a college in one academic year?",
+  "How many tyres are sold in the UK each year?",
+  "How many km of road are there in the UK?",
+  "How many Kit Kats are eaten in Britain each day?",
+  "How many people work as teachers in England?",
+  "How many ants live in a typical UK garden?",
+  "How many times does the average car door open and close in its lifetime?",
+  "How many whiteboard markers run out in a school year?",
+  // 31-40
+  "How many pints of milk does a primary school use per week?",
+  "How many words are spoken in a typical school day?",
+  "How many squirrels live in London?",
+  "How many cups of tea are drunk in a staffroom in a week?",
+  "How many miles does a London bus travel in its lifetime?",
+  "How many cocoa beans are needed to make one chocolate bar?",
+  "How many pages of homework does a secondary student complete in a year?",
+  "How many penguins live in Antarctica?",
+  "How many petrol stations are there in England?",
+  "How many fingers are on all the hands in one Year 7 form?",
+  // 41-50
+  "How many seconds does a lesson last in total for a whole school year?",
+  "How many bricks are in a typical UK house?",
+  "How many lightbulbs are used in a school building?",
+  "How many Easter eggs are sold in the UK each spring?",
+  "How many trees are planted in Britain each year?",
+  "How many hedgehogs are there in the UK?",
+  "How many cars are parked outside schools at 8:45am across England?",
+  "How many footballs are kicked around in a school PE department each year?",
+  "How many students cycle to college in Britain on a typical weekday?",
+  "How many pizzas are eaten in the UK on a Friday night?",
+  // 51-60
+  "How many times does a school bell ring in one year?",
+  "How many grains of rice are in a kilogram bag?",
+  "How many goldfish are kept as pets in the UK?",
+  "How many electric cars are on UK roads today?",
+  "How many times is a classroom door opened in a school day?",
+  "How many times does a heart beat in a person's life?",
+  "How many calculators would fit in a school hall?",
+  "How many bananas are eaten in the UK each year?",
+  "How many people in the UK have a driving licence?",
+  "How many bricks would it take to build a wall around your school?",
+  // 61-70
+  "How many hours of television does an average UK adult watch per week?",
+  "How many chocolate bars would be needed to cover a football pitch?",
+  "How many snowflakes fall on the UK in a typical winter?",
+  "How many minutes do students spend queuing for lunch in a year?",
+  "How many worms live under one square metre of garden soil?",
+  "How many doors are there in a typical secondary school?",
+  "How many times does a car tyre rotate on a 10,000 mile trip?",
+  "How many toothbrushes are sold in the UK each year?",
+  "How many rugby balls are needed to fill a school gym?",
+  "How many miles of hedgerow are there in England?",
+  // 71-80
+  "How many bicycles are stolen in the UK each year?",
+  "How many tennis balls would fill a double decker bus?",
+  "How many staff work in an FE college in England?",
+  "How many bars of soap are used in a school in a term?",
+  "How many gallons of fuel does the UK's car fleet use each day?",
+  "How many mobile phones are charged in a secondary school each day?",
+  "How many cats live in the UK?",
+  "How many hours does a maths teacher spend marking in a year?",
+  "How many lollipops does a sweet shop sell in a year?",
+  "How many traffic lights are there in Britain?",
+  // 81-90
+  "How many people visit a UK zoo in a summer?",
+  "How many times does a pencil get sharpened in a year at a school?",
+  "How many cars are sold in the UK each year?",
+  "How many tonnes of chocolate does the UK eat in a year?",
+  "How many photocopies are made in a typical college library each week?",
+  "How many pieces of Lego are in a typical school's toy box?",
+  "How many ducks live in St James's Park, London?",
+  "How many registration periods happen in a school in a year?",
+  "How many metres of cable does a school need for its IT network?",
+  "How many stars are visible to the naked eye from a UK garden?",
+  // 91-100
+  "How many cups of coffee does a college café sell in a week?",
+  "How many km does a Royal Mail van drive in a year?",
+  "How many pairs of trainers are worn by secondary students in England?",
+  "How many children are born in the UK each day?",
+  "How many whiteboards are in a typical secondary school?",
+  "How many ice creams are sold on a warm UK beach day?",
+  "How many hairs are on a typical adult head?",
+  "How many cars drive through a single roundabout in a day?",
+  "How many mince pies are eaten in the UK in December?",
+  "How many pupils attend secondary school in England?",
+  // 101-110
+  "How many birds visit a typical garden feeder in a winter?",
+  "How many lunches are served in a secondary school in a term?",
+  "How many pieces of chewing gum are sold in the UK each year?",
+  "How many lamp posts line the M25?",
+  "How many elephants could fit in the Wembley pitch?",
+  "How many paper cups are thrown away in a college canteen each week?",
+  "How many miles of cables run under the streets of London?",
+  "How many maths textbooks are printed in the UK each year?",
+  "How many times does a person blink in a maths lesson?",
+  "How many kilograms of cheese does the UK eat each year?",
+  // 111-120
+  "How many fossils are found along the Jurassic Coast in a year?",
+  "How many calories are in all the chocolate eaten by a school in a term?",
+  "How many minibuses are used by schools across England?",
+  "How many hours do all the students in a school spend on the bus each week?",
+  "How many polar bears are alive today?",
+  "How many cups of tea are made in a school kitchen in a week?",
+  "How many students sit A-level exams in England each summer?",
+  "How many sheets of toilet roll are used in a school each day?",
+  "How many pedestrians cross the road outside a school each morning?",
+  "How many cows live in England?",
+  // 121-130
+  "How many square metres of lawn are mown in Britain each weekend?",
+  "How many cars drive over the Severn Bridge in a day?",
+  "How many words are in a typical GCSE maths exam paper?",
+  "How many rolls of tape does a school use in a year?",
+  "How many hot chocolates are sold in Britain in January?",
+  "How many stairs are climbed by students in a school day?",
+  "How many snails live in a typical UK garden?",
+  "How many buses are on the road in London at rush hour?",
+  "How many paper clips would it take to reach the top of a tower block?",
+  "How many pupils are taught by one primary teacher across a year?",
+  // 131-140
+  "How many cars are scrapped in the UK each year?",
+  "How many cups does a school dinner hall wash each day?",
+  "How many bags of crisps are eaten by secondary students in a week?",
+  "How many pigeons live in central London?",
+  "How many km of cycle lanes are there in the UK?",
+  "How many letters does the Royal Mail deliver in the UK each day?",
+  "How many hours of maths are taught in a secondary school in a year?",
+  "How many glasses of milk are drunk by primary pupils in a term?",
+  "How many potatoes are eaten in the UK each year?",
+  "How many rubber bands are used in a school office in a year?",
+  // 141-150
+  "How many trees are in the grounds of a typical UK school?",
+  "How many calculators have been lost in schools across England?",
+  "How many spiders live in a typical British house?",
+  "How many minutes of rain fall in Manchester in a year?",
+  "How many bottles of water are drunk at a secondary school on a hot day?",
+  "How many people walk through the gates of a college each day?",
+  "How many paper planes could fill a classroom?",
+  "How many miles of motorway are there in the UK?",
+  "How many chocolate eggs does a supermarket sell at Easter?",
+  "How many roads cross the River Thames in London?",
+  // 151-160
+  "How many hedges are trimmed each year in a typical town?",
+  "How many times does a school photocopier break down in a year?",
+  "How many train journeys are made in the UK each day?",
+  "How many bees are in a single hive?",
+  "How many A4 sheets would fit on a classroom wall?",
+  "How many years does a typical car last before it is scrapped?",
+  "How many pints of beer are drunk in a UK pub each week?",
+  "How many people in the UK work in a school?",
+  "How many students use a school library in a term?",
+  "How many footsteps does a student take between lessons in a day?",
+  // 161-170
+  "How many birthdays does a secondary school celebrate in a year?",
+  "How many hamsters are sold in the UK each year?",
+  "How many petrol cars are driven past a school gate each morning?",
+  "How many chocolate teapots would fill a bathtub?",
+  "How many lessons does a typical pupil attend before GCSEs?",
+  "How many tonnes of rubbish does a school produce in a year?",
+  "How many cubes of ice are in a freezer?",
+  "How many times does a UK dog bark in a day?",
+  "How many bridges span the River Tyne?",
+  "How many dictionaries are sold in the UK each year?",
+  // 171-180
+  "How many grams of sugar does a typical child eat in a week?",
+  "How many pencils would reach from London to Edinburgh if laid end to end?",
+  "How many cars are repaired at a typical UK garage each week?",
+  "How many people visit the British Museum in a year?",
+  "How many jigsaw pieces are in a typical school's puzzle collection?",
+  "How many lunchtime queues does a school canteen form in a term?",
+  "How many puppies are born in the UK each year?",
+  "How many marbles would fill a school hall?",
+  "How many sweets does a child eat before their 10th birthday?",
+  "How many EV chargers are there in the UK?",
+  // 181-190
+  "How many grains of sand are on a UK beach?",
+  "How many years of school does a student complete in the UK?",
+  "How many ladders are sold in the UK each year?",
+  "How many students drop out of college in their first year?",
+  "How many blades of grass cover a school field?",
+  "How many chess sets are in UK schools?",
+  "How many cups of coffee does a typical teacher drink in a term?",
+  "How many brass bands are there in Yorkshire?",
+  "How many parking spaces does a large supermarket have?",
+  "How many times does a fridge door open in a household in a week?",
+  // 191-200
+  "How many giraffes live in the world's zoos?",
+  "How many pages of paper does a school print in a term?",
+  "How many km of coastline does the UK have?",
+  "How many lemon drizzle cakes are baked for school fairs each year?",
+  "How many students use the school gates each morning?",
+  "How many goals are scored in a Premier League season?",
+  "How many electric kettles are used in a college each day?",
+  "How many chocolate bars would fit in a double-decker bus?",
+  "How many times is a school bell rung for registration each year?",
+  "How many photographs are taken on a school trip?",
+  // 201-210
+  "How many minutes does a teacher spend on the register each year?",
+  "How many bottles of ink are used in a school's printers each year?",
+  "How many crows live in the UK?",
+  "How many blocks of flats are there in Birmingham?",
+  "How many hours of daylight does the UK get in a year?",
+  "How many wine gums are in a standard packet?",
+  "How many tennis rackets are sold in the UK each year?",
+  "How many words does a secondary student write in a school year?",
+  "How many tyres are changed at a UK garage each day?",
+  "How many sandwiches are sold at a motorway service station in a day?",
+  // 211-220
+  "How many hours do UK schoolchildren spend learning maths each week?",
+  "How many snowmen could be built in a typical UK winter?",
+  "How many pints of water does the average student drink in a day?",
+  "How many whales swim past the UK coast each summer?",
+  "How many trains run through Clapham Junction each day?",
+  "How many chips are eaten in the UK on a typical Saturday?",
+  "How many unopened letters are in an office in a year?",
+  "How many cars does a driving test centre examine each year?",
+  "How many pencil cases are bought for school each September?",
+  "How many tennis courts fit in a city centre?",
+  // 221-230
+  "How many people in the UK are employed as electricians?",
+  "How many times does a teacher say the word 'right' in a lesson?",
+  "How many bicycles are parked at a typical secondary school?",
+  "How many potatoes are needed to feed a school of 1000 pupils?",
+  "How many chocolate eclairs does a bakery sell in a week?",
+  "How many hours of TV does a primary school child watch in a year?",
+  "How many students are in an FE college in a town of 50,000 people?",
+  "How many hedgehogs cross a busy road each night?",
+  "How many mobile phones are sold in the UK each year?",
+  "How many metres does a school bus travel in a year?",
+  // 231-240
+  "How many sheep are sheared in the UK each year?",
+  "How many toilet visits do a secondary school's pupils make in a day?",
+  "How many books are borrowed from a school library in a year?",
+  "How many bricks are laid on a UK building site each day?",
+  "How many hot water bottles are sold in the UK in winter?",
+  "How many puzzle books are sold in the UK each Christmas?",
+  "How many people use the stairs in a train station each day?",
+  "How many kilometres do pupils walk to school in a year across England?",
+  "How many tennis balls would fit in a school minibus?",
+  "How many lines of text are on a whiteboard at the end of a lesson?",
+  // 241-250
+  "How many dogs are registered with vets in the UK?",
+  "How many pencils does a school buy in a year?",
+  "How many bicycles are sold in the UK each year?",
+  "How many chocolate buttons would reach across a classroom?",
+  "How many hours of sunshine does Brighton get in a summer?",
+  "How many lessons are missed by students each year?",
+  "How many hairdressers are there in the UK?",
+  "How many tins of beans are eaten in the UK each week?",
+  "How many newspapers are printed in the UK each day?",
+  "How many cars use a school car park in a day?",
+  // 251-260
+  "How many whiteboard pens could fill a school bag?",
+  "How many lunch boxes are packed for school in England each day?",
+  "How many raindrops fall on a school playground in a rainstorm?",
+  "How many grandparents does a Year 9 pupil have between them?",
+  "How many hours do secondary students spend on homework in a year?",
+  "How many tonnes of salt are spread on UK roads each winter?",
+  "How many seagulls nest on a typical British seaside town roof?",
+  "How many vending machines are in a college?",
+  "How many milk bottles are delivered in the UK each morning?",
+  "How many students could fit inside a double decker bus?",
+  // 261-270
+  "How many hours of streaming video are watched in the UK each day?",
+  "How many mince pies would it take to fill a school hall?",
+  "How many lessons does a teacher teach in a career?",
+  "How many traffic cones are on UK roads?",
+  "How many train carriages are needed for a school trip?",
+  "How many bags of litter are collected from a school playground each week?",
+  "How many cakes are baked for a college bake sale?",
+  "How many students graduate from UK universities each year?",
+  "How many wild deer live in England?",
+  "How many pencils would a classroom need over a 30-year period?",
+  // 271-280
+  "How many fish are caught in the UK each year?",
+  "How many petrol-powered lawnmowers are used in Britain each summer?",
+  "How many square metres of carpet are in a typical UK school?",
+  "How many people walk along the South West Coast Path each year?",
+  "How many school desks are there in England?",
+  "How many seconds are lost to pupils changing rooms each day?",
+  "How many bananas would it take to weigh the same as a family car?",
+  "How many glue sticks are used in a primary school each term?",
+  "How many bus stops are there in London?",
+  "How many road signs are there in the UK?",
+  // 281-290
+  "How many Mars bars are sold in the UK each year?",
+  "How many cups of soup does a college serve in a week?",
+  "How many cyclists use the roads in Cambridge each day?",
+  "How many textbooks are in a school library?",
+  "How many hours does a school caretaker spend cleaning each week?",
+  "How many tweets are posted in the UK each day?",
+  "How many gallons of paint are used to repaint a school?",
+  "How many fire engines are in the UK?",
+  "How many pupils study Further Maths in England?",
+  "How many footballs would fit in a primary school classroom?",
+  // 291-300
+  "How many cows are milked in the UK each day?",
+  "How many pizzas are ordered in a school's lunchtime?",
+  "How many staples fit in a stapler?",
+  "How many people attend a Premier League match each season?",
+  "How many steps does a secondary pupil take in a school day?",
+  "How many shoes are left unclaimed in a school lost property box?",
+  "How many sunflowers grow in a typical school garden?",
+  "How many km does the UK's rail network cover?",
+  "How many petrol stations close each year in the UK?",
+  "How many minutes does it take to walk the length of a classroom?",
+  // 301-310
+  "How many chocolate coins would fit in a school bag?",
+  "How many bees are kept by beekeepers in Britain?",
+  "How many houses have a fire alarm in the UK?",
+  "How many times does a maths teacher write the word 'equation' in a year?",
+  "How many cars were on UK roads in 1950?",
+  "How many hours a week does the average secondary pupil spend on a phone?",
+  "How many tea bags are used in a staffroom each term?",
+  "How many hot air balloons fly over Bristol each August?",
+  "How many lightning strikes hit the UK each day?",
+  "How many words are in a typical school newsletter?",
+  // 311-320
+  "How many kilograms of flour are used by UK bakeries each week?",
+  "How many children are taught to swim in a year in England?",
+  "How many pieces of fruit does a secondary school sell at break each week?",
+  "How many wheels turn on the cars in a school car park?",
+  "How many magazines are sold at UK supermarkets each month?",
+  "How many square metres of glass are in a typical school?",
+  "How many hours does a student spend in an exam hall in their school life?",
+  "How many grains of salt would fill a school bus?",
+  "How many hot dogs are sold at UK football grounds each season?",
+  "How many elephants weigh the same as a double decker bus?",
+  // 321-330
+  "How many marbles fit in a standard school bag?",
+  "How many UK universities teach mathematics?",
+  "How many cars are bought second hand in the UK each year?",
+  "How many children are in primary school in England?",
+  "How many telegraph poles line a 100 mile rail route?",
+  "How many ballpoint pens are sold in the UK each year?",
+  "How many people use the lift in a six-storey college building each day?",
+  "How many pints of blood are donated in the UK each year?",
+  "How many times do pupils open their lockers in a term?",
+  "How many sheep graze the Peak District?",
+  // 331-340
+  "How many rabbits live in the UK countryside?",
+  "How many cups of tea does the UK drink in a day?",
+  "How many words does a teacher read in a week of marking?",
+  "How many taxis operate in London?",
+  "How many road accidents happen in the UK each day?",
+  "How many hours of rain fall in Scotland each year?",
+  "How many toffees are sold in a seaside town in a summer?",
+  "How many polar bear cubs are born each year?",
+  "How many laptops does a college lend out in a year?",
+  "How many textbooks are printed for GCSE maths each year?",
+  // 341-350
+  "How many packets of biscuits are eaten in a school staffroom each year?",
+  "How many classes are taught in a secondary school each day?",
+  "How many hours do UK students spend in lessons across their school life?",
+  "How many sandwiches are eaten on a school trip?",
+  "How many lemons would fill a bathtub?",
+  "How many petrol tankers deliver fuel across the UK each day?",
+  "How many hairs are on a golden retriever?",
+  "How many books could fill a school library?",
+  "How many times does the average person sneeze in a year?",
+  "How many tigers live in the wild worldwide?",
+  // 351-360
+  "How many kettles are in UK homes?",
+  "How many mugs does a school staffroom use in a week?",
+  "How many hours does a lollipop man or woman work in a year?",
+  "How many blue cars are on UK roads?",
+  "How many shopping trolleys are in the UK?",
+  "How many chocolate digestive biscuits are eaten in Britain each day?",
+  "How many students can fit in a school minibus?",
+  "How many snowboarders use the Cairngorms each winter?",
+  "How many pens and pencils are lost in a school each year?",
+  "How many meals are served in UK hospitals each day?",
+  // 361-366
+  "How many lightbulbs are changed in a school in a year?",
+  "How many pupils walk to school in England each morning?",
+  "How many cars enter central London each weekday?",
+  "How many km of pipe carry water to UK homes?",
+  "How many hours of football are played in UK parks each Sunday?",
+  "How many questions are in this list of Fermi questions?"
+];
+
+(function () {
+  var now = new Date();
+  // Day of the year, 1 to 366, worked out from calendar dates so daylight saving can't shift it.
+  var today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  var jan1 = Date.UTC(now.getFullYear(), 0, 1);
+  var dayOfYear = Math.round((today - jan1) / 86400000) + 1;
+  var question = QUESTIONS[(dayOfYear - 1) % QUESTIONS.length];
+
+  document.getElementById('qotd-date').textContent =
+    'Fermi question for ' + now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+  document.getElementById('qotd-text').textContent = question;
+})();
+</script>
+
+<script>
+// Click the stick figure: he walks to the board, wipes it, walks away, and "hello" is revealed.
+(function () {
+  var figure = document.querySelector('.stickman');
+  var walker = document.getElementById('walker');
+  var eraser = document.getElementById('eraser');
+  var reveal = document.getElementById('reveal-rect');
+  var arm = document.getElementById('arm');
+  var tool = document.getElementById('tool');
+  var SHOULDER = [31, 52];
+  var REST = [56, 42];
+  var MIDDLE = 80;          // how far he walks to stand in front of the middle of the board
+  var offset = 0;           // how far he is currently walked from his starting spot
+  var hand = REST.slice();  // hand position in his own coordinates
+  var wiped = false;
+  var busy = false;
+  var current = null;                                  // the word on the board: 'hello' or 'thanks'
+  var clips = { hello: reveal, thanks: document.getElementById('thanks-rect') };
+  var WIDTHS = { hello: 88, thanks: 98 };
+
+  function ease(p) {
+    return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+  }
+
+  // Run frameFn(p) from p = 0 to 1 over the given time, then call done
+  function animate(duration, frameFn, done) {
+    var start = null;
+    function frame(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      frameFn(p);
+      if (p < 1) { requestAnimationFrame(frame); }
+      else if (done) { done(); }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // Move the whole figure left or right
+  function setWalk(dx) {
+    offset = dx;
+    walker.setAttribute('transform', 'translate(' + dx + ' 0)');
+  }
+
+  // Put the hand (and the sponge in it) at a point in his own coordinates
+  function placeHand(x, y) {
+    hand = [x, y];
+    arm.setAttribute('d', 'M' + SHOULDER[0] + ' ' + SHOULDER[1] + ' L' + x + ' ' + y);
+    tool.setAttribute('x', x - 5);
+    tool.setAttribute('y', y - 3);
+  }
+
+  function walkTo(target, next) {
+    var from = offset;
+    animate(1000, function (p) {
+      setWalk(from + (target - from) * ease(p));
+    }, next);
+  }
+
+  // Short sweep of the sponge across the part of the board in front of him
+  function wipe(next) {
+    animate(700, function (p) {
+      var boardX = 85 + 52 * p;
+      placeHand(boardX - offset, 40 + Math.sin(p * Math.PI * 6) * 2);
+      if (!wiped) {
+        eraser.setAttribute('width', Math.max(0, boardX + 4 - 65));
+      }
+    }, function () {
+      eraser.setAttribute('width', 88);
+      wiped = true;
+      next();
+    });
+  }
+
+  function handToRest(next) {
+    var fromX = hand[0];
+    var fromY = hand[1];
+    animate(500, function (p) {
+      var e = ease(p);
+      placeHand(fromX + (REST[0] - fromX) * e, fromY + (REST[1] - fromY) * e);
+    }, next);
+  }
+
+  // The sponge rubs a word out from left to right
+  function rubOut(word, next) {
+    var clip = clips[word];
+    animate(800, function (p) {
+      var edge = 65 + WIDTHS[word] * p;
+      clip.setAttribute('x', edge);
+      clip.setAttribute('width', Math.max(0, 153 - edge));
+      placeHand(edge - offset, 40 + Math.sin(p * Math.PI * 6) * 2);
+    }, function () {
+      clip.setAttribute('x', 65);
+      clip.setAttribute('width', 0);
+      next();
+    });
+  }
+
+  // He writes a word from left to right, his hand wiggling along the letters
+  function writeWord(word, next) {
+    var clip = clips[word];
+    clip.setAttribute('x', 65);
+    clip.setAttribute('width', 0);
+    animate(1800, function (p) {
+      var w = WIDTHS[word] * p;
+      clip.setAttribute('width', w);
+      var boardX = 65 + w + Math.sin(p * Math.PI * 20) * 1.2;
+      var y = 46 + Math.sin(p * Math.PI * 14) * 3;
+      placeHand(boardX - offset, y);
+    }, next);
+  }
+
+  // Rub out whatever is showing, then write the other word
+  function writeNext(next) {
+    var target = current === 'hello' ? 'thanks' : 'hello';
+    var write = function () {
+      writeWord(target, function () {
+        current = target;
+        next();
+      });
+    };
+    if (current) { rubOut(current, write); } else { write(); }
+  }
+
+  // Once back at the starting spot, he raises his hand and waves
+  function wave(next) {
+    animate(1600, function (p) {
+      var up = Math.min(p / 0.2, 1);
+      var x = 40 + Math.sin(p * Math.PI * 8) * 6;
+      var y = 52 - (52 - 22) * ease(up);
+      placeHand(x, y);
+    }, next);
+  }
+
+  figure.addEventListener('click', function () {
+    if (busy) return;
+    busy = true;
+    walkTo(MIDDLE, function () {
+      var finish = function () {
+        walkTo(0, function () {
+          wave(function () {
+            handToRest(function () {
+              busy = false;
+            });
+          });
+        });
+      };
+      if (!wiped) {
+        wipe(function () {
+          writeNext(finish);
+        });
+      } else {
+        writeNext(finish);
+      }
+    });
+  });
+
+  placeHand(REST[0], REST[1]);
+  setWalk(0);
+})();
+</script>
+
+</body>
+</html>
