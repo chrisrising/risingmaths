@@ -103,6 +103,9 @@
       flex-wrap: wrap;
       margin-top: 1rem;
     }
+    .lead { color: var(--text); margin: 0 0 1.2rem; }
+    .feature-list li { margin-bottom: .9rem; }
+    .feature-list strong { color: var(--blue); }
     .download-note { font-size: 1.1rem; color: var(--muted); }
     .signup-msg { margin: .75rem 0 0; color: var(--blue); min-height: 1.5rem; }
     .signup-small { font-size: 1rem; color: var(--muted); margin: .25rem 0 0; }
@@ -126,14 +129,30 @@
 
   <h2>What it does</h2>
   <div class="box">
-    <ol>
-      <li><strong>Scaled rulers:</strong> rulers drawn to scale on screen, so you can measure and show lengths to the class.</li>
-      <li><strong>Interactive shapes:</strong> move and explore shapes in front of the class.</li>
-      <li><strong>Demo calculator emulator:</strong> a calculator on screen that you can use to demonstrate key presses, for example on the fx-83GT CW+.</li>
-      <li><strong>Always-visible learning objectives:</strong> keep the lesson objectives on screen while you teach.</li>
-      <li><strong>PDF and document pen:</strong> write on worksheets and documents as you go through them.</li>
-      <li><strong>Timer and screen pen:</strong> a classroom timer, plus a pen you can draw anywhere on the screen.</li>
-    </ol>
+    <p class="lead">Every tool here exists for the same reason: maths makes sense when learners
+      can see what's actually going on. These are for showing meaning rather than demonstrating
+      methods &ndash; for the moment someone stops copying your steps and starts understanding why
+      the steps work.</p>
+    <ul class="feature-list">
+      <li><strong>Measuring that really is measuring.</strong> Rulers and protractors drawn true to
+        scale, so a centimetre on the board is a centimetre. Learners watch a length being measured
+        rather than reading a number off a picture of a ruler.</li>
+      <li><strong>Shapes you can take apart.</strong> Drag, rotate, cut and unfold them in front of
+        the class. Area stops being a formula to remember and becomes something they just watched
+        happen &ndash; and a net is far more convincing when the solid opens out in front of them.</li>
+      <li><strong>The calculator that's in their hands.</strong> The fx-83GT CW+ on screen, key for
+        key. Show the press, and why that button does what it does, instead of describing it from
+        the front while thirty people hunt for it.</li>
+      <li><strong>The point of the lesson, always in view.</strong> Objectives sit along the bottom
+        of the board and tick off as you go, so nobody has to wonder where this is heading or what
+        they're meant to be taking from it.</li>
+      <li><strong>Work through it together.</strong> Write straight onto worksheets, past papers and
+        slides as you go. Save the annotated copy afterwards for whoever was away, or for the
+        learner who wants the working again without the lesson around it.</li>
+      <li><strong>Attention, when you need it.</strong> A timer readable from the back row, and a pen
+        that draws over anything on screen &ndash; a website, a video, a photo of someone's book
+        under the visualiser.</li>
+    </ul>
     <div class="download-row">
       <a class="btn" id="ct-download" href="https://github.com/chrisrising/classtools/releases/latest/download/ClassTools-Windows-1.52.0.zip">Download ClassTools (ZIP)</a>
       <span class="download-note" id="ct-meta">Version 1.52.0 &middot; 21 November 2026 &middot; 101 MB</span>
