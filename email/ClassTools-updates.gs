@@ -17,7 +17,7 @@
  *
  * Useful things you can run by hand from the same dropdown:
  *   previewToMe   - sends you, and only you, what the next email would look like
- *   whoIsOnTheList - logs the addresses currently signed up
+ *   whoIsOnTheList - logs who is signed up, and who has opted out
  *   sendNow       - emails everyone about the current version, ignoring whether
  *                   they have already had it. For when you want to force one out.
  */
@@ -25,6 +25,12 @@
 var REPO = 'chrisrising/classtools';
 var DOWNLOAD_PAGE = 'https://risingmaths.web.app/classtools';
 var FROM_NAME = 'RisingMaths';
+
+// The "Stop ClassTools emails" form. Anyone who fills it in is skipped from then
+// on, so coming off the list takes one click and needs nothing from you.
+var UNSUB_FORM_ID = '1_Cl5Djuv6XEfuasfvfDkGjVKMcr93NE6xAUWQseTXdQ';
+var UNSUB_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLScTODpj-pWVE-GEkxh40zlur0_lOqqye5WwaltbXQXHRf370g/viewform';
+var UNSUB_FIELD = 'entry.1502132081';
 
 
 /** Run this once to start the weekly check. */
@@ -85,7 +91,7 @@ function previewToMe() {
   MailApp.sendEmail({
     to: me,
     subject: '[Preview] ' + subjectFor(rel),
-    htmlBody: bodyFor(rel),
+    htmlBody: bodyFor(rel, me),
     name: FROM_NAME
   });
   Logger.log('Preview sent to ' + me);
@@ -94,8 +100,9 @@ function previewToMe() {
 
 /** Logs who is currently signed up. */
 function whoIsOnTheList() {
-  var list = subscribers();
-  Logger.log(list.length + ' on the list:\n' + list.join('\n'));
+  var list = subscribers(), off = optedOut();
+  Logger.log(list.length + ' will be emailed:\n' + list.join('\n') +
+             '\n\n' + off.length + ' have opted out:\n' + off.join('\n'));
 }
 
 
@@ -144,10 +151,10 @@ function threeChanges(body) {
 }
 
 
-/** Everyone who has filled the form in, tidied up and with duplicates removed. */
-function subscribers() {
+/** Every address a form holds, tidied up and with duplicates removed. */
+function addressesIn(form) {
   var seen = {}, list = [];
-  FormApp.getActiveForm().getResponses().forEach(function (resp) {
+  form.getResponses().forEach(function (resp) {
     resp.getItemResponses().forEach(function (item) {
       var v = String(item.getResponse() || '').trim().toLowerCase();
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) return;
@@ -160,12 +167,32 @@ function subscribers() {
 }
 
 
+/** Who has asked to stop being emailed. */
+function optedOut() {
+  try {
+    return addressesIn(FormApp.openById(UNSUB_FORM_ID));
+  } catch (err) {
+    // Better to send nothing than to email somebody who has asked you not to.
+    throw new Error('Could not read the unsubscribe form, so nothing was sent: ' + err);
+  }
+}
+
+
+/** Everyone signed up, minus anyone who has opted out. */
+function subscribers() {
+  var out = {};
+  optedOut().forEach(function (e) { out[e] = true; });
+  return addressesIn(FormApp.getActiveForm()).filter(function (e) { return !out[e]; });
+}
+
+
 function subjectFor(rel) {
   return 'ClassTools ' + rel.version + ' is out';
 }
 
 
-function bodyFor(rel) {
+/** The email. `to` is the person it is going to, so their unsubscribe link is prefilled. */
+function bodyFor(rel, to) {
   var items = rel.changes.length
     ? '<ul style="margin:0 0 18px;padding-left:20px">' +
         rel.changes.map(function (c) {
@@ -189,9 +216,17 @@ function bodyFor(rel) {
         'Remember to right-click the zip and tick Unblock before extracting it.' +
       '</p>' +
       '<p style="margin:18px 0 0;color:#5b6573;font-size:13px">' +
-        'You signed up for these on RisingMaths. Reply to this email and I\'ll take you off the list.' +
+        'You signed up for these on RisingMaths. ' +
+        '<a href="' + unsubLinkFor(to) + '" style="color:#5b6573">Unsubscribe</a>' +
+        ' and you won\'t be emailed again.' +
       '</p>' +
     '</div>';
+}
+
+
+/** The unsubscribe link, with their address already filled in so it is one click. */
+function unsubLinkFor(to) {
+  return UNSUB_LINK + '?' + UNSUB_FIELD + '=' + encodeURIComponent(to || '');
 }
 
 
@@ -206,11 +241,11 @@ function emailEveryone(rel) {
                ' left in today\'s Gmail allowance. Sending what it allows.');
   }
 
-  var subject = subjectFor(rel), html = bodyFor(rel), sent = 0;
+  var subject = subjectFor(rel), sent = 0;
   list.forEach(function (to) {
     if (sent >= quota) return;
     try {
-      MailApp.sendEmail({ to: to, subject: subject, htmlBody: html, name: FROM_NAME });
+      MailApp.sendEmail({ to: to, subject: subject, htmlBody: bodyFor(rel, to), name: FROM_NAME });
       sent++;
     } catch (err) {
       Logger.log('Could not email ' + to + ': ' + err);

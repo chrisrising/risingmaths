@@ -47,6 +47,11 @@ has, everybody signed up gets a short email with three of the changes, taken
 from the release notes. If not, nothing is sent, so nobody gets an email for the
 sake of it.
 
+Every email carries an unsubscribe link pointing at a second form, "Stop
+ClassTools emails", with the reader's own address already filled in. The script
+reads that form too and skips anyone on it, so coming off the list is one click
+for them and nothing to do for you.
+
 Setup, and the by-hand functions (`previewToMe`, `whoIsOnTheList`, `sendNow`),
 are documented at the top of that file.
 
