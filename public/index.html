@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RisingMaths</title>
   <meta name="description" content="Free GCSE and Functional Skills maths resources.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -94,6 +96,8 @@
       flex-direction: column;
     }
     .card h3 { margin: 0 0 .4rem; color: var(--blue); font-size: 1.7rem; }
+    .cardtitle { display: flex; align-items: center; gap: .5rem; }
+    .cardlogo { width: 40px; height: 40px; position: relative; z-index: 3; }
     .card p { margin: 0 0 1rem; color: var(--muted); font-size: 1.2rem; flex-grow: 1; }
     .btn {
       display: inline-block;
@@ -209,7 +213,7 @@
   <div class="grid">
 
     <div class="card">
-      <h3>ClassTools App</h3>
+      <h3 class="cardtitle"><img class="cardlogo" src="classtools-logo.png" alt="" width="40" height="40">ClassTools App</h3>
       <p>The ultimate maths classroom presentation solution! Scaled rulers, interactive shapes, demo calculator emulators, always-visible learning objectives and more!</p>
       <a class="btn" href="classtools.html">Open</a>
     </div>

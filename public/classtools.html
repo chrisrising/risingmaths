@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ClassTools App | RisingMaths</title>
   <meta name="description" content="ClassTools App: a classroom maths presentation tool. Features, download and setup guide.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -39,6 +41,21 @@
       padding: 2rem 1rem;
     }
     header h1 { margin: 0 0 .3rem; font-size: 2.6rem; }
+    .titleline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .7rem;
+      flex-wrap: wrap;
+    }
+    .logo {
+      width: 72px;
+      height: 72px;
+      /* The logo is its own picture, so it sits above the squared-paper header */
+      position: relative;
+      z-index: 3;
+    }
+    @media (max-width: 500px) { .logo { width: 56px; height: 56px; } }
     header p { margin: 0; color: var(--muted); }
     header a { color: var(--blue); }
     main {
@@ -120,7 +137,7 @@
 <body>
 
 <header>
-  <h1>ClassTools App</h1>
+  <h1 class="titleline"><img class="logo" src="classtools-logo.png" alt="" width="72" height="72">ClassTools App</h1>
   <p>The ultimate maths classroom presentation solution!</p>
   <p><a href="index.html">&larr; Back to RisingMaths</a></p>
 </header>
