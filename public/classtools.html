@@ -156,8 +156,8 @@
 
   <div class="box topgrab">
     <div class="download-row">
-      <a class="btn" id="ct-download-top" href="https://github.com/chrisrising/classtools/releases/latest/download/ClassTools-Windows-1.52.0.zip">Download ClassTools (ZIP)</a>
-      <span class="download-note" id="ct-meta-top">Version 1.52.0 &middot; 21 November 2026 &middot; 101 MB</span>
+      <a class="btn" id="ct-download-top" href="https://github.com/chrisrising/classtools/releases/latest">Download ClassTools (ZIP)</a>
+      <span class="download-note" id="ct-meta-top">Newest version for Windows</span>
     </div>
     <div class="donate-row">
       <a class="btn donate" href="https://ko-fi.com/chrisrising" target="_blank" rel="noopener">Donate on Ko-fi</a>
@@ -192,8 +192,8 @@
         under the visualiser.</li>
     </ul>
     <div class="download-row">
-      <a class="btn" id="ct-download" href="https://github.com/chrisrising/classtools/releases/latest/download/ClassTools-Windows-1.52.0.zip">Download ClassTools (ZIP)</a>
-      <span class="download-note" id="ct-meta">Version 1.52.0 &middot; 21 November 2026 &middot; 101 MB</span>
+      <a class="btn" id="ct-download" href="https://github.com/chrisrising/classtools/releases/latest">Download ClassTools (ZIP)</a>
+      <span class="download-note" id="ct-meta">Newest version for Windows</span>
     </div>
   </div>
 
@@ -305,10 +305,10 @@
 <script>
 // Asks GitHub for the newest ClassTools release when the page loads, then points the button at that
 // zip and writes the version, date and size beside it. Nothing here needs editing when a new
-// version goes out. The link written in the HTML above downloads the zip straight off, so the
-// button never opens GitHub even with scripts turned off; this keeps it pointing at the newest
-// one. Worth knowing: that written-in link names a file, so if GitHub cannot be reached AND a
-// newer version has been released since, it is the one link that would go stale.
+// version goes out. The link written in the HTML above opens the newest release's own page, so
+// with scripts off the button still reaches the current download rather than a file name that
+// goes stale the moment a new version is published; the fetch below upgrades it to a direct
+// download of the zip itself.
 (function () {
   var btns = [document.getElementById('ct-download'), document.getElementById('ct-download-top')].filter(Boolean),
       metas = [document.getElementById('ct-meta'), document.getElementById('ct-meta-top')].filter(Boolean);
