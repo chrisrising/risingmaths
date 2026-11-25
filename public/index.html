@@ -68,7 +68,7 @@
       position: absolute;
       right: .75rem;
       bottom: 2px;
-      width: 85px;
+      width: 124px;
       height: auto;
       z-index: 3;
       pointer-events: auto;
@@ -185,22 +185,19 @@
     <text x="109" y="48" text-anchor="middle" font-size="30" fill="#808080" stroke="none" clip-path="url(#reveal-clip)">hello</text>
     <text x="109" y="48" text-anchor="middle" font-size="30" fill="#808080" stroke="none" clip-path="url(#thanks-clip)">thanks</text>
     <g id="walker">
-    <!-- head -->
-    <circle cx="30" cy="26" r="16"/>
-    <!-- beard: filled, so it still reads as a beard at the size this is drawn.
-         Sideburns high at the temples, straight down past the jaw, and a broad
-         rounded base well below the chin, with the moustache separate above it. -->
-    <path d="M14.2 26 C13.6 35 14.1 41 16.4 47 C18.4 53.5 23 57.5 30 57.5
-             C37 57.5 41.6 53.5 43.6 47 C45.9 41 46.4 35 45.8 26
-             C42.5 31.5 38 33.5 30 33.5 C22 33.5 17.5 31.5 14.2 26 Z" fill="#808080" stroke="none"/>
+    <!-- Head: hair and beard are one dark mass, with the face cut out of it as a
+         pale oval. At this size that reads far better than drawing each separately. -->
+    <circle cx="30" cy="26" r="16" fill="#808080"/>
+    <path d="M14.4 27 C14 34 14.6 39.5 16.8 44.5 C18.9 50 23.2 53.5 30 53.5
+             C36.8 53.5 41.1 50 43.2 44.5 C45.4 39.5 46 34 45.6 27 Z" fill="#808080" stroke="none"/>
+    <!-- the face -->
+    <ellipse cx="30" cy="24" rx="10.6" ry="10.2" fill="#f7f8fa" stroke="none"/>
     <!-- eyes -->
-    <circle cx="24.6" cy="20.5" r="2.2" fill="#808080" stroke="none"/>
-    <circle cx="35.4" cy="20.5" r="2.2" fill="#808080" stroke="none"/>
-    <!-- moustache, sitting on top of the beard -->
-    <path d="M21.5 29.4 C24 26.9 27.2 28 30 29.8 C32.8 28 36 26.9 38.5 29.4
-             C36.8 33.6 33.4 35 30 34.2 C26.6 35 23.2 33.6 21.5 29.4 Z" fill="#808080" stroke="none"/>
-    <!-- mouth: a gap in the beard under the moustache -->
-    <path d="M26.3 37.4 Q30 40.4 33.7 37.4" stroke="#f7f8fa" stroke-width="1.7"/>
+    <circle cx="25.8" cy="22" r="2" fill="#808080" stroke="none"/>
+    <circle cx="34.2" cy="22" r="2" fill="#808080" stroke="none"/>
+    <!-- mouth: a pale smile in the beard. The dark band between it and the face
+         is the moustache - drawn as its own shape it just muddied the chin. -->
+    <path d="M26 38.2 Q30 42.2 34 38.2" stroke="#f7f8fa" stroke-width="2.2" fill="none"/>
     <!-- body -->
     <path d="M30 42 Q31 62 30 82"/>
     <!-- arm holding the marker to the board -->
