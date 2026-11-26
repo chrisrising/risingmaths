@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShapeXplorer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="views">
+<!-- ========== 2D VIEW ========== -->
+<div id="view2d" class="view">
+<div id="side2">
+  <div id="drawBox">
+    <div class="btns two">
+      <button id="freeUndo">Undo pin</button>
+      <button id="freeClear">Clear pins</button>
+    </div>
+    <p class="hint">Each point joins to the one before. Click the green starting point to close the shape, or pick an option below. A pyramid uses the shape as its base.</p>
+    <div class="opts">
+      <button id="shape2d" class="full" disabled><svg class="bico" viewBox="0 0 28 24" aria-hidden="true"><polygon points="14,3 26,21 2,21" fill="#2563eb"/></svg>2D</button>
+      <button id="opt3d" class="full" disabled><svg class="bico" viewBox="0 0 28 24" aria-hidden="true"><polygon points="4,8 18,8 18,21 4,21" fill="#2563eb"/><polygon points="4,8 10,3 24,3 18,8" fill="#93c5fd"/><polygon points="18,8 24,3 24,16 18,21" fill="#1e40af"/></svg>3D</button>
+      <button id="polyBtn" class="full"><svg class="bico" viewBox="0 0 28 24" aria-hidden="true"><polygon points="14,2 24,8.5 20.5,20.5 7.5,20.5 4,8.5" fill="#bfdbfe" stroke="#2563eb" stroke-width="2" stroke-linejoin="round"/></svg>Regular polygons</button>
+      <button id="sphere2d" class="full"><svg class="bico" viewBox="0 0 28 24" aria-hidden="true"><defs><radialGradient id="sphGrad" cx="36%" cy="30%" r="72%"><stop offset="0%" stop-color="#bfdbfe"/><stop offset="55%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#1e3a8a"/></radialGradient></defs><circle cx="14" cy="12" r="10" fill="url(#sphGrad)"/><ellipse cx="14" cy="12" rx="10" ry="3.4" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1"/><ellipse cx="10.5" cy="7.8" rx="3.1" ry="2.1" fill="rgba(255,255,255,.55)" transform="rotate(-25 10.5 7.8)"/></svg>Sphere</button>
+    </div>
+  </div>
+  <div id="shapeBox" hidden>
+    <button id="newShape" class="full spaced">New shape</button>
+    <div class="btns bar">
+      <button class="nsTo2d">2D</button>
+      <button class="ns3d">3D</button>
+    </div>
+  </div>
+
+  <div id="g-show" hidden>
+    <button id="dimBtn" class="full">Dimensions</button>
+    <button id="areaBtn" class="full">Area</button>
+    <button id="angBtn" class="full">Angles</button>
+    <button id="splitBtn" class="full">Cut mode</button>
+    <button id="undoBtn" class="full" disabled>Undo</button>
+    <button id="joinBtn" class="full" hidden>Put back together</button>
+  </div>
+</div>
+<div id="stage2">
+  <canvas id="c2"></canvas>
+  <div id="labels2"></div>
+  <div id="handles2"></div>
+  <div id="drawMsg" class="msg"></div>
+  <div id="meas2" class="mwin">
+    <div class="mhead">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="8" width="20" height="8" rx="1"/><path d="M5 8v3M8 8v2M11 8v3M14 8v2M17 8v3M20 8v2"/></svg></span>
+      <b>Area and perimeter</b>
+      <button id="meas2Toggle" class="mbtn">Show</button>
+    </div>
+    <div id="meas2Body" hidden>
+      <div class="mrow"><span>Perimeter</span><b id="sumPerim">-</b></div>
+      <div class="mrow"><span>Area</span><b id="sumArea">-</b></div>
+      <button id="calc2Btn" class="link">Show calculations</button>
+      <div class="info" id="info2" hidden></div>
+    </div>
+  </div>
+  <div id="bottomLeft2">
+    <div id="zoomBtns2">
+      <button id="zoomIn2" title="Zoom in" aria-label="Zoom in">+</button>
+      <button id="zoomOut2" title="Zoom out" aria-label="Zoom out">&minus;</button>
+    </div>
+    <div id="snapBtns">
+      <p class="hint">Snap</p>
+      <div id="snap">
+        <button data-snap="1" class="on">Whole</button>
+        <button data-snap="0.5">1/2</button>
+        <button data-snap="0.1">1/10</button>
+        <button data-snap="0">Off</button>
+      </div>
+    </div>
+  </div>
+  <button id="zoomReset" class="overlayBtn">Reset view</button>
+</div>
+</div>
+
+<!-- ========== 3D VIEW ========== -->
+<div id="view3d" class="view" hidden>
+<div id="side">
+  <button id="new3d" class="full spaced">New shape</button>
+  <div class="btns bar">
+    <button class="nsTo2d">2D</button>
+    <button class="ns3d">3D</button>
+  </div>
+  <div id="hemiRow" hidden>
+    <label class="check"><input type="checkbox" id="hemi"> Hemi-sphere</label>
+  </div>
+
+  <div class="group">
+    <button id="dimBtn3" class="full">Dimensions</button>
+    <button id="surfBtn" class="full">Surface area</button>
+    <button id="volBtn" class="full">Volume</button>
+    <div id="layersRow" hidden>
+      <label class="wheel">Layers <span id="layerVal">0 of 0</span>
+        <input type="range" id="layers" min="0" max="0" step="1" value="0">
+      </label>
+    </div>
+    <button id="unfoldBtn" class="full">Unfold net</button>
+  </div>
+
+  <button id="appBtn" class="full">Appearance</button>
+
+  <p class="hint">Drag the solid to turn it, or use the arrows bottom left. Double-click a face to turn it square-on to you. To change the depth, click an end face once to select it, then press it again and drag.</p>
+</div>
+<div id="stage">
+  <canvas id="c"></canvas>
+  <div id="labels"></div>
+  <div id="meas3" class="mwin">
+    <div class="mhead">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19h16M6 19l-2-9h16l-2 9"/><path d="M12 10V5M8 5h8"/><circle cx="12" cy="5" r="1"/></svg></span>
+      <b>Volume &amp; density</b>
+      <button id="meas3Toggle" class="mbtn">Show</button>
+    </div>
+    <div id="meas3Body" hidden>
+      <div class="ticks">
+        <label class="tick"><input type="checkbox" id="tickMass"> Mass</label>
+        <label class="tick"><input type="checkbox" id="tickDensity"> Density</label>
+        <label class="tick"><input type="checkbox" id="tickVolume"> Volume</label>
+      </div>
+      <div id="densVals"></div>
+      <p class="hint">Material it is made of</p>
+      <div class="btns" id="mats">
+        <button data-mat="plastic">Plastic</button>
+        <button data-mat="wood">Wood</button>
+        <button data-mat="brick">Brick</button>
+        <button data-mat="metal">Metal</button>
+        <button data-mat="concrete">Concrete</button>
+      </div>
+      <button id="calc3Btn" class="link">Show calculations</button>
+      <div class="info" id="info" hidden></div>
+    </div>
+  </div>
+  <div id="bottomLeft">
+  <div id="rotArrows">
+    <button id="rotU" title="Tilt up" aria-label="Tilt up">▲</button>
+    <button id="rotL" title="Turn left" aria-label="Turn left">◀</button>
+    <button id="rotD" title="Tilt down" aria-label="Tilt down">▼</button>
+    <button id="rotR" title="Turn right" aria-label="Turn right">▶</button>
+  </div>
+  <div id="zoomBtns">
+    <button id="zoomIn" title="Zoom in" aria-label="Zoom in">+</button>
+    <button id="zoomOut" title="Zoom out" aria-label="Zoom out">&minus;</button>
+  </div>
+  </div>
+  <button id="reset" class="overlayBtn">Reset view</button>
+</div>
+</div>
+</div>
+
+<script src="three.min.js"></script>
+<script src="lines.js"></script>
+<script src="geometry.js"></script>
+<script src="app-core.js"></script>
+<script src="app-ui.js"></script>
+<script src="party.js"></script>
+<script src="area2d.js"></script>
+<script>
+(function(){
+  // One page: the 2D shape, and the 3D view reached from its prism button. Back to 2D returns.
+  window.switchView = function(v){
+    ['3d','2d'].forEach(k => { document.getElementById(k === '3d' ? 'view3d' : 'view2d').hidden = k !== v; });
+    window.App.active = v === '3d';
+    if (v === '2d' && window.Area2D) window.Area2D.draw();
+    if (window.App && window.App.syncShapeBar) window.App.syncShapeBar();
+  };
+  // Readings are drawn at double size on a big screen, so that a shape on the board at the front
+  // of a room can be read from the back of it. There is no way for a page to know how many inches
+  // across a screen is, so this goes on the width of the window: a maximised window on a board or
+  // a large monitor gets the big text, a smaller window keeps the normal size.
+  const BIG_FROM = 1280;
+  function sizeClass(){
+    const big = window.innerWidth >= BIG_FROM;
+    if (big === document.body.classList.contains('big')) return;
+    document.body.classList.toggle('big', big);
+    if (window.Area2D) window.Area2D.draw();
+  }
+  sizeClass();
+  window.addEventListener('resize', sizeClass);
+
+  // The 2D shapes view opens first.
+  window.switchView('2d');
+})();
+</script>
+</body>
+</html>
