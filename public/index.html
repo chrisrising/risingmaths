@@ -37,6 +37,9 @@
       color: var(--blue);
       text-align: center;
       position: relative;
+      /* How wide the figure is drawn. The subtitle reserves this much room on a
+         narrow screen so it wraps before it reaches him instead of running under. */
+      --fig: clamp(80px, 14vw, 124px);
       max-width: 900px;
       margin: 1.5rem auto 0;
       padding: 2.5rem 1rem;
@@ -64,11 +67,15 @@
       z-index: -1;
     }
     header p { margin: 0; color: var(--muted); position: relative; z-index: 2; }
+    @media (max-width: 900px) {
+      header p { padding-right: calc(var(--fig) + 1rem); }
+      header { padding-bottom: 3.2rem; }
+    }
     .stickman {
       position: absolute;
       right: .75rem;
       bottom: 2px;
-      width: 124px;
+      width: var(--fig);
       height: auto;
       z-index: 3;
       pointer-events: auto;
