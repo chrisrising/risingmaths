@@ -73,6 +73,10 @@
     .box ol, .box ul { padding-left: 1.5rem; margin: .5rem 0 0; }
     .box li { margin-bottom: .5rem; }
     .box h3 { margin: 0 0 .4rem; color: var(--blue); font-size: 1.6rem; }
+    .whatsnew { list-style: none; padding-left: 0 !important; }
+    .whatsnew li { padding-left: 1.9rem; position: relative; }
+    .whatsnew li::before { content: "\2726"; position: absolute; left: .3rem; top: -.1rem; color: var(--blue); }
+    .whatsnew b { color: var(--text); }
     .btn.browser { background: #2e7d32; }
     .browser-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 1.1rem;
                    padding-bottom: 1.1rem; border-bottom: 2px dashed var(--line); }
@@ -174,6 +178,21 @@
       <a class="btn donate" href="https://ko-fi.com/chrisrising" target="_blank" rel="noopener">Donate on Ko-fi</a>
       <span class="donate-note">Help to support the development of this and other awesome maths tools in the future</span>
     </div>
+  </div>
+
+  <h2>What&rsquo;s new</h2>
+  <div class="box">
+    <ul class="whatsnew">
+      <li><b>Two fingers to turn.</b> On a board, put two fingers on the ruler, protractor,
+        mirror, tracing paper or a shape and twist &mdash; it turns, the way you would turn a
+        real protractor on a desk.</li>
+      <li><b>A mirror.</b> A rectangle of glass with a glowing green mirror line down its edge.
+        Whatever sits on the far side shows reflected in it, the same size. Stamp the line onto
+        the page as a dotted line, take the mirror away, and let them draw the image themselves.</li>
+      <li><b>A plain calculator.</b> A four-function desk calculator alongside the scientific
+        models, with memory, percent and tax keys &mdash; for the groups who are not using a
+        scientific one yet.</li>
+    </ul>
   </div>
 
   <h2>What it does</h2>

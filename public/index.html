@@ -66,10 +66,13 @@
       filter: blur(6px);
       z-index: -1;
     }
-    header p { margin: 0; color: var(--muted); position: relative; z-index: 2; }
+    /* One line, centred, whatever the screen: it shrinks to fit rather than wrapping
+       round the figure, who stands below it in the corner. */
+    header p { margin: 0; color: var(--muted); position: relative; z-index: 2;
+               white-space: nowrap; font-size: clamp(.6rem, 3.3vw, 1.35rem); }
     @media (max-width: 900px) {
-      header p { padding-right: calc(var(--fig) + 1rem); }
-      header { padding-bottom: 3.2rem; }
+      /* Room under the text for the figure, who is about four thirds as tall as he is wide. */
+      header { padding-bottom: calc(var(--fig) * 1.36 + .5rem); }
     }
     .stickman {
       position: absolute;
