@@ -70,7 +70,7 @@
 
   <div class="note">
     <h2>Keep it on your desktop</h2>
-    <p>In Chrome or Edge you can install this page: look for the install icon in the address bar, or open the browser menu and choose <b>Install</b>. You get an icon and its own window with no address bar, it works without the internet — and because it is still the browser, it needs no admin rights and nothing from IT.</p>
+    <p>In Chrome or Edge, open the browser menu and choose <b>Install</b> or <b>Add to Home screen</b>. You get an icon and its own window with no address bar — and because it is still the browser, it needs no admin rights and nothing from IT.</p>
     <button id="install">Install ClassTools</button>
   </div>
 
@@ -95,6 +95,7 @@
     await prompter.userChoice.catch(() => {});
     prompter = null;
   });
+  // Registered only so the old service worker is reached and retires itself - see tools/build-web.sh.
   if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 </script>
 </body>
