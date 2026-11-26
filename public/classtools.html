@@ -77,9 +77,11 @@
     .whatsnew li { padding-left: 1.9rem; position: relative; }
     .whatsnew li::before { content: "\2726"; position: absolute; left: .3rem; top: -.1rem; color: var(--blue); }
     .whatsnew b { color: var(--text); }
-    .btn.browser { background: #2e7d32; }
-    .browser-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 1.1rem;
-                   padding-bottom: 1.1rem; border-bottom: 2px dashed var(--line); }
+    /* The browser version is not announced yet: this is a plain unlabelled box at the
+       foot of the page, for testing it without anyone finding it by accident. */
+    .quiet-door { display: block; width: 44px; height: 22px; margin: 2.5rem auto 0;
+                  border: 1px solid var(--line); border-radius: 5px; opacity: .45; }
+    .quiet-door:hover, .quiet-door:focus-visible { opacity: .9; outline: none; }
     .btn {
       display: inline-block;
       text-align: center;
@@ -166,10 +168,6 @@
 <main>
 
   <div class="box topgrab">
-    <div class="browser-row">
-      <a class="btn browser" href="classtools/">Use it in your browser</a>
-      <span class="download-note">Nothing to install, nothing for IT to approve &mdash; it runs on a locked-down college PC, and on a tablet</span>
-    </div>
     <div class="download-row">
       <a class="btn" id="ct-download-top" href="https://github.com/chrisrising/classtools/releases/latest">Download ClassTools (ZIP)</a>
       <span class="download-note" id="ct-meta-top"><span class="dlver">Newest version for Windows</span><span class="dlcount"></span></span>
@@ -249,6 +247,8 @@
     <p class="signup-small">Used only to tell you about new ClassTools versions, at most once a week.
       Every email has an unsubscribe link, one click and you're off the list.</p>
   </div>
+
+  <a class="quiet-door" href="classtools/" aria-label="ClassTools in your browser (not announced yet)"></a>
 
 </main>
 

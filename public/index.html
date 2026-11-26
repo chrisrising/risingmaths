@@ -39,7 +39,7 @@
       position: relative;
       /* How wide the figure is drawn. The subtitle reserves this much room on a
          narrow screen so it wraps before it reaches him instead of running under. */
-      --fig: clamp(80px, 14vw, 124px);
+      --fig: clamp(70px, 14vw, 124px);
       max-width: 900px;
       margin: 1.5rem auto 0;
       padding: 2.5rem 1rem;
@@ -71,9 +71,17 @@
     header p { margin: 0; color: var(--muted); position: relative; z-index: 2;
                white-space: nowrap; font-size: clamp(.6rem, 3.3vw, 1.35rem); }
     @media (max-width: 900px) {
-      /* Room under the text for the figure, who is about four thirds as tall as he is wide. */
-      header { padding-bottom: calc(var(--fig) * 1.36 + .5rem); }
+      /* The title keeps its own row; below it the subtitle sits on the left with the
+         figure standing beside it on the right, which is tidier than him underneath. */
+      header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center;
+               row-gap: .2rem; padding-bottom: 1.1rem; }
+      header h1 { flex: 0 0 100%; }
+      header p { flex: 1 1 auto; min-width: 0; text-align: left;
+                 font-size: clamp(.5rem, 2.45vw, 1.35rem); padding-bottom: .35rem; }
+      .stickman { position: static; flex: 0 0 var(--fig); }
     }
+    /* Narrower than most phones (a Fold's cover screen, an old SE): a notch smaller again. */
+    @media (max-width: 340px) { header p { font-size: 2.2vw; } }
     .stickman {
       position: absolute;
       right: .75rem;
