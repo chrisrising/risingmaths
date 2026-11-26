@@ -16,6 +16,6 @@
   "shortcuts": [
     { "name": "Presenter", "url": "./presenter.html" },
     { "name": "Calculator", "url": "./calc.html" },
-    { "name": "ShapeXplorer", "url": "./shapes/index.html" }
+    { "name": "ShapeXplorer", "url": "./shapes/" }
   ]
 }
